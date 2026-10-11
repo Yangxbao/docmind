@@ -1,0 +1,30 @@
+# Java / Maven
+backend/target/
+target/
+*.class
+
+# 前端构建产物（构建后会输出到后端静态目录，用于单 jar 部署）
+frontend/node_modules/
+node_modules/
+frontend/dist/
+backend/src/main/resources/static/
+
+# 运行时数据：上传的文档、日志
+backend/data/
+data/
+*.log
+
+# OCR 语言包体积大，不入库（部署文档中有下载地址）
+tessdata/
+backend/tessdata/
+*.traineddata
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# 个人面试准备材料，不入公开仓库（想公开可删除此行）
+docs/答辩口述稿.md
+docs/GIT发布指南.md

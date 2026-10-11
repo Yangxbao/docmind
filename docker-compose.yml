@@ -1,0 +1,27 @@
+# DocMind 智档 · 本地基础环境（MySQL + Redis）
+# 用法：docker compose up -d
+# 说明：只负责启动数据库中间件；后端和前端仍在宿主机运行，便于开发调试。
+#       首次启动会自动执行 ./sql 下的建表脚本。
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: docmind-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: docmind
+      TZ: Asia/Shanghai
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis:7-alpine
+    container_name: docmind-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql-data:

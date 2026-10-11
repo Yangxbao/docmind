@@ -1,0 +1,73 @@
+/* 全局基础样式：保持简洁干净 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f5f7fa;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+  color: #303133;
+}
+
+/* 搜索结果/预览中的命中片段高亮 */
+mark.hl {
+  background: #ffe58f;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+.mt12 {
+  margin-top: 12px;
+}
+
+.mb12 {
+  margin-bottom: 12px;
+}
+
+.mr4 {
+  margin-right: 4px;
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Markdown 预览的基础排版 */
+.md-body {
+  line-height: 1.8;
+  word-break: break-word;
+}
+
+.md-body pre {
+  background: #f6f8fa;
+  padding: 12px;
+  border-radius: 6px;
+  overflow: auto;
+}
+
+.md-body code {
+  background: #f6f8fa;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.md-body blockquote {
+  margin: 8px 0;
+  padding: 4px 12px;
+  border-left: 4px solid #dcdfe6;
+  color: #606266;
+}
+
+.md-body table {
+  border-collapse: collapse;
+}
+
+.md-body table th,
+.md-body table td {
+  border: 1px solid #dcdfe6;
+  padding: 6px 12px;
+}

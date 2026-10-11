@@ -1,0 +1,60 @@
+# =============================================================
+# DocMind 智档 · 应用配置
+# 只需要改两处就能跑起来：MySQL 密码、(可选)Redis 地址
+# =============================================================
+server:
+  port: 8080
+
+spring:
+  application:
+    name: docmind
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/docmind?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: "1234"          # TODO: 改成你自己的 MySQL 密码
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      # password: ""             # Redis 设置了密码时打开
+
+  servlet:
+    multipart:
+      max-file-size: 50MB       # 单个文件上限
+      max-request-size: 500MB   # 文件夹批量导入的总上限
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true                        # 数据库下划线列名 -> Java 驼峰属性
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl     # 开发期打印 SQL，上线可删除本行
+  global-config:
+    banner: false
+    db-config:
+      logic-delete-field: deleted    # 全局逻辑删除字段：deleted=1 视为已删除，查询自动过滤
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# ==================== DocMind 自定义配置 ====================
+docmind:
+  jwt:
+    secret: docmind-local-secret-change-me-9527   # JWT 签名密钥（生产环境务必改成随机长字符串）
+    expire-hours: 72                              # 登录有效期（小时）
+
+  upload-dir: ./data/files                        # 上传文档的磁盘存储目录（相对后端运行目录）
+
+  ocr:
+    tessdata: ./tessdata                          # Tesseract 语言包目录，需放入 chi_sim.traineddata（见部署文档）
+    max-ocr-pages: 20                             # 扫描版 PDF 最多 OCR 的页数（控制耗时）
+
+  embedding:
+    # 向量化提供方（可插拔接口，二选一）：
+    #   tfidf  = 内置词频哈希向量，纯 Java 零依赖，保证一键跑通（词级相似度）
+    #   ollama = 本地 Ollama 模型向量化，真语义检索（需先安装并启动 Ollama）
+    provider: tfidf
+
+  ollama:
+    base-url: http://localhost:11434              # Ollama 服务地址
+    model: bge-m3                                 # 中文语义效果好的免费本地嵌入模型：ollama pull bge-m3
